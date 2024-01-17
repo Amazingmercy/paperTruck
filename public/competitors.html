@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Schools - paperTruck</title>
+    <!-- Bootstrap CSS link -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h2 class="text-center logo2">paper Truck</h2>
+        <p class="lead">Your Solution for Sustainable Practices</p>
+        <div class="navigation-links">
+            <a href="./userDashboard.html">Back</a>
+        </div>
+    </div>
+
+    <div class="top-schools">
+        <h2 class="section-title">All Schools</h2>
+        <ul class="schools-list" id="schoolsList">
+        </ul>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- Your custom JavaScript goes here -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module">
+    import { getAuthToken } from './js/auth.js';
+const authToken = getAuthToken();
+    async function displayCompetitors(){
+    try{
+        const data = await axios.get(
+            "http://localhost:4900/api/v1/departments",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${authToken}`
+              },
+            }
+          );
+
+          const schoolsList = document.getElementById("schoolsList");
+
+          // Clear existing list items
+          schoolsList.innerHTML = '';
+
+          // Loop through the data and create list items
+          data.data.forEach(item => {
+              const li = document.createElement("li");
+              li.className = "school-item";
+
+              const schoolName = document.createElement("li");
+              schoolName.className = "school-name";
+              schoolName.textContent = item.departmentName;
+
+              
+              li.appendChild(schoolName);
+              schoolsList.appendChild(li);
+          });
+
+    }catch (error) {
+        console.log("Error in user display:", error);
+    }
+    
+}
+    
+document.addEventListener('DOMContentLoaded', displayCompetitors);
+</script>
+
+</body>
+</html>

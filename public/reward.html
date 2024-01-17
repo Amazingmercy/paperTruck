@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reward Page - paperTruck</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/style.css" />
+  </head>
+  <body>
+    <div class="reward-body">
+      <div class="reward-container">
+        <h2>Congratulations!</h2>
+        <p>You've won a special reward!</p>
+        <img
+          src="./images/reward.jpg"
+          alt="Reward Image"
+          style="max-width: 100%; height: auto; margin-top: 20px"
+        />
+        <p>Enjoy your prize!</p>
+        <p id="prize"></p>
+
+        <div class="navigation-links">
+          <a href="./userDashboard.html">Back to Dashboard</a>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module">
+      import { getAuthToken } from "./js/auth.js";
+      const authToken = getAuthToken();
+      async function displayReward() {
+        try {
+          const data = await axios.get(
+            "http://localhost:4900/api/v1/reward",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${authToken}`,
+              },
+            }
+          );
+
+          const prize = document.getElementById("prize");
+          const prizeValue = data.data.reward
+
+          if (prizeValue == "") {
+            prize.innerHTML = 'Congratulations, Come back for prize!';
+        } else {
+             prize.innerHTML = `You won: ${prizeValue}`;
+        }
+
+        } catch (error) {
+          console.log("Error in user display:", error);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", displayReward);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - paperTruck</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/admin.css">
+</head>
+<body>
+
+<header>
+    <h1>Admin Dashboard</h1>
+</header>
+
+<!-- Add an ID to your navigation bar for easy selection -->
+<nav class="d-none d-md-block nav-link" id="adminNav">
+    <a href="#" data-target="logout" id="logoutButton">Logout</a>
+    <a href="#" data-target="viewLogs">View Logs</a>
+    <a href="#" data-target="viewAllCompetitors">View All Competitors</a>
+    <a href="#"  id="goBackLink">Back </a>
+</nav>
+
+<main class="container" id="main-content">
+    <h1>Welcome Admin!</h1>
+
+
+    <section id="viewLogsSection" class="content-section">
+        <h2>Logs Section</h2>
+        <span id="span"></span>
+        <!-- Content for the View Logs section -->
+        <div class="all-logs">
+            <ul class="logs-list" id="LogsList"></ul>
+        </div>
+    </section>
+
+    <section id="viewAllCompetitorsSection" class="content-section">
+        <h2>All Competitors </h2>
+        <span id="ospan"></span>
+        <!-- Content for the View All Competitors section -->
+        <div class="all-schools">
+            <ul class="schools-list" id="schoolsList"></ul>
+        </div>
+    </section>
+
+
+    <section id="OneCompetitorSection" class="content-section">
+        <h2>One Competitor</h2>
+        <span id="fspan"></span>
+        <div class="all-schools">
+            <div id="data"></div>
+        </div>
+    </section>
+    
+
+
+
+    <section id="viewOneCompetitorSection" class="content-section">
+        <h2>One Competitor Section</h2>
+        <span id="mspan"></span>
+        <div class="one-school-section">
+            <form method="post" id="myForm">
+            <label for="departmentName">Department Name:</label>
+            <input type="text" name="departmentName" id="departmentName">
+            <button type="submit" id="viewDepartmet">View Department</button>
+        </form>
+    </section>
+</main>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./js/admin.js"></script>
+<script src="./js/logout.js"></script>
+
+</body>
+</html>

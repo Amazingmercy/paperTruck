@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>paperTruck - Registration</title>
+    
+    <!-- Bootstrap CSS link -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 form-container">
+            <h2 class="text-center logo">paper Truck</h2>
+            <p id="span"></p>
+            <h2 class="text-center">Register</h2>
+            <form method="post" id="registrationForm" autocomplete="on">
+                <div class="form-group">
+                    <label for="department">Department Name</label>
+                    <input type="text" class="form-control" id="department" name="department" >
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="text" class="form-control" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+                </div>
+                    <button type="submit" class="btn btn-custom btn-block" id="submit-btn">Create Account</button><br>
+                <div class="login-link">
+                    <p>Already have an account? <a href="./login.html">Login here</a></p>
+                </div>    
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="./js/register.js"> </script>
+</body>
+</html>

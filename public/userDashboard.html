@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - paperTruck</title>
+    <!-- Bootstrap CSS link -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="./styles/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <h1 id="departmentName"></h1>
+        </div>
+        <div class="navigation-links">
+            <button id="starsButton">Stars</button>
+            <button id="competitorsButton">Competitors</button>
+            <button id="logoutButton">Logout</button>
+            <button id="rewardButton">Reward</button>
+        </div>
+    
+
+        <div class="bin-container">
+            <div class="bin-cover">
+                <div class="bin" id="pointsBin">
+                    <h2 class="bin-text">bin</h2>
+                </div>
+            </div>
+            <div class="points"><h2>Points:</h2><h2 id="userPoints"></h2></div>
+        </div>
+    
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Your custom JavaScript goes here -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="./js/user.js"> </script>
+    <script type="module" src="./js/logout.js"></script>
+    <script type="module">
+    import { getAuthToken, getUserId } from "./js/auth.js";
+    const authToken = getAuthToken();
+    const userId = getUserId()
+    const viewDepartmentname = async () => {
+        
+            try{
+            const response = await axios.get("http://localhost:4900/api/v1/departmentName", 
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${authToken}`
+                },
+            }
+            )
+            const departmentName = document.querySelector("#departmentName")
+            departmentName.innerHTML = response.data.departmentName
+        } catch (error){
+            console.log("Error in user display:", error);
+        }
+    }
+
+
+    const updateBinAndPoints = async() => {
+        try{
+            const response = await axios.get("http://localhost:4900/api/v1/points", 
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${authToken}`
+                },
+            }
+            )
+            const points = document.querySelector("#userPoints")
+            const bin = document.querySelector('#pointsBin')
+            const binCover = document.querySelector('.bin-cover')
+            const rewardButton = document.querySelector('#rewardButton')
+            points.innerHTML = response.data
+            const pointsValue = response.data
+            // Update bin size based on points (adjust the formula as needed)
+            const binSize = pointsValue; // Example formula, adjust as needed
+            bin.style.width = "200px";
+            bin.style.height = binSize + "px";
+
+            if(pointsValue === 350){
+            rewardButton.style.display = "Inline-block";
+            } else {
+            rewardButton.style.display = "none"
+            }
+            } catch (error){
+            console.log("Error in user display:", error);
+        }
+    }
+
+    
+
+
+
+        document.addEventListener('DOMContentLoaded', viewDepartmentname)
+        document.addEventListener('DOMContentLoaded', updateBinAndPoints)
+        
+    </script>
+</body>
+
+</html>
