@@ -91,16 +91,11 @@ document.addEventListener('DOMContentLoaded', function () {
         form.addEventListener('submit', async function (event) {
             event.preventDefault();
 
-            const departmentName = document.querySelector("#departmentName").value;
+            const departmentName = document.querySelector("#departmentSelect").value;
             const span = document.getElementById('mspan');
             
                 const data = {
                     departmentName: departmentName
-                }
-
-                if (!data.departmentName) {
-                    span.innerHTML = 'Enter Department Name';
-                    return;
                 }
 
 
