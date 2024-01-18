@@ -40,6 +40,18 @@ const viewOneParticipant = asyncWrapper(async (req, res) => {
 
 })
 
+const getDepartmentNames = asyncWrapper(async (req, res) => {
+
+  const departmentName = await User.find({}).select('departmentName -_id')
+  if(!departmentName){
+      return res.status(404).json({message: `Department Name not found`})
+  }
+  res.status(200).json(departmentName)
+
+
+
+})
+
 const removeOneParticipant = asyncWrapper(async (req, res) => {
     const userId  = req.params.id
     const user = await User.findOneAndDelete({_id: userId})
@@ -192,5 +204,6 @@ module.exports = {
     rewardNotification,
     pointsNotification,
     removeOneParticipant,
-    getUserId
+    getUserId,
+    getDepartmentNames
 }

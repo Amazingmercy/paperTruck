@@ -3,6 +3,52 @@ const storedUserToken = localStorage.getItem('userToken');
 const submitBtn = document.querySelector('#myForm')
 
 
+const getCompetitorsList = async(userToken) => {
+    try{
+        const data = await axios.get(
+            "http://localhost:4900/api/v1/admin/departmentName",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${userToken}`,
+              },
+            }
+          );
+        console.log(data.data)
+        return data.data
+
+    } catch (error){
+        span.innerHTML =  error.response ? error.response.data.message : error.response.message
+        console.log("Error in user display:", error);
+    }
+}
+
+
+const populateDropdown = async () => {
+    const departmentSelect = document.getElementById('departmentSelect');
+
+    try {
+        const departments = await getCompetitorsList(storedUserToken);
+
+        // Clear existing options
+        departmentSelect.innerHTML = '';
+
+        // Populate dropdown with fetched data
+        for (let i = 0; i < departments.length; i++) {
+            const item = departments[i];
+            if (item.departmentName) {
+                const option = document.createElement('option');
+                option.text = item.departmentName; 
+                departmentSelect.appendChild(option);
+            }
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+};
+
+populateDropdown()
+
 document.addEventListener('DOMContentLoaded', function () {
     const navLinks = document.getElementById('adminNav').querySelectorAll('a');
     const contentSections = document.querySelectorAll('.content-section');
@@ -145,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
 
 
 

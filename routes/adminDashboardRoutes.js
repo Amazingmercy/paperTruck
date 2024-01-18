@@ -9,6 +9,7 @@ router.route('/reward/:id').put(Admin.updateReward).get(Admin.rewardNotification
 router.route('/id').post(Admin.getUserId)
 router.route('/participants').get(Admin.viewAllParticipants)
 router.route('/logs').get(Admin.viewLogs)
+router.route('/departmentName').get(Admin.getDepartmentNames)
 
 
 module.exports = router
